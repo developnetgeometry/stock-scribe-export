@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useInventory } from "../contexts/InventoryContext";
 import { useAuth } from "../contexts/AuthContext";
@@ -21,7 +20,7 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { FileSpreadsheet, FilePdf } from "lucide-react";
+import { FileSpreadsheet, FileText } from "lucide-react";
 
 const ExportData = () => {
   const { 
@@ -105,7 +104,7 @@ const ExportData = () => {
                   }`}
                   onClick={() => setExportFormat("pdf")}
                 >
-                  <FilePdf className="h-8 w-8 mb-2" />
+                  <FileText className="h-8 w-8 mb-2" />
                   <span>PDF</span>
                 </div>
               </div>
@@ -219,7 +218,11 @@ const ExportData = () => {
             </span>
           </div>
           <Button onClick={handleExport} disabled={filteredItems.length === 0}>
-            <FileSpreadsheet className="mr-2 h-4 w-4" />
+            {exportFormat === "excel" ? (
+              <FileSpreadsheet className="mr-2 h-4 w-4" />
+            ) : (
+              <FileText className="mr-2 h-4 w-4" />
+            )}
             Export as {exportFormat === "excel" ? "Excel" : "PDF"}
           </Button>
         </CardFooter>
