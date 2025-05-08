@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { InventoryItem } from "@/types";
+import { ItemStatus } from "@/types/ItemStatus";
 
 const InventoryForm = () => {
   const { addItem, updateItem, items, categories, locations } = useInventory();
@@ -179,7 +180,6 @@ const InventoryForm = () => {
                   placeholder="E.g., EL001"
                   value={formData.itemNo}
                   onChange={handleChange}
-                  error={errors.itemNo}
                   className={errors.itemNo ? "border-destructive" : ""}
                 />
                 {errors.itemNo && (
