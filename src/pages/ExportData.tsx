@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useInventory } from "../contexts/InventoryContext";
 import { useAuth } from "../contexts/AuthContext";
@@ -132,7 +133,7 @@ const ExportData = () => {
                       <SelectValue placeholder="All Categories" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">All Categories</SelectItem>
+                      <SelectItem value="all-categories">All Categories</SelectItem>
                       {categories.map((category) => (
                         <SelectItem key={category.id} value={category.name}>
                           {category.name}
@@ -153,7 +154,7 @@ const ExportData = () => {
                       <SelectValue placeholder="All Statuses" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">All Statuses</SelectItem>
+                      <SelectItem value="all-statuses">All Statuses</SelectItem>
                       <SelectItem value="Active">Active</SelectItem>
                       <SelectItem value="Inactive">Inactive</SelectItem>
                       <SelectItem value="Reserved">Reserved</SelectItem>
@@ -172,7 +173,7 @@ const ExportData = () => {
                       <SelectValue placeholder="All Locations" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">All Locations</SelectItem>
+                      <SelectItem value="all-locations">All Locations</SelectItem>
                       {locations.map((location) => (
                         <SelectItem key={location.id} value={location.name}>
                           {location.name}

@@ -182,15 +182,15 @@ export const InventoryProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       );
     }
     
-    if (filterOptions.category) {
+    if (filterOptions.category && filterOptions.category !== "all-categories") {
       result = result.filter(item => item.category === filterOptions.category);
     }
     
-    if (filterOptions.status) {
+    if (filterOptions.status && filterOptions.status !== "all-statuses") {
       result = result.filter(item => item.status === filterOptions.status);
     }
     
-    if (filterOptions.location) {
+    if (filterOptions.location && filterOptions.location !== "all-locations") {
       result = result.filter(item => item.location === filterOptions.location);
     }
     
