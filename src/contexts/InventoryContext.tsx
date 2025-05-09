@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { InventoryItem, FilterOptions, SortOptions, Category, Location } from "../types";
 import { useAuth } from "./AuthContext";

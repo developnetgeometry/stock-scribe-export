@@ -38,7 +38,7 @@ export interface Location {
 export interface FilterOptions {
   search: string;
   category: string;
-  status: ItemStatus | "";
+  status: ItemStatus | "" | "all-statuses";
   location: string;
 }
 
