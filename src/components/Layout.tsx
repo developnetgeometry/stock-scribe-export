@@ -4,7 +4,6 @@ import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { 
-  LogOut, 
   Package, 
   List, 
   FileSpreadsheet, 
@@ -38,8 +37,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <div className="flex min-h-screen bg-background">
-      {/* Updated sidebar to match the design in the image */}
-      <aside className="w-64 bg-[hsl(var(--sidebar-background))] text-[hsl(var(--sidebar-foreground))]">
+      {/* Updated sidebar to match the purple color in the image */}
+      <aside className="w-64 bg-[hsl(var(--primary))] text-white">
         <div className="p-6">
           <h2 className="text-2xl font-bold text-white">IMMS</h2>
         </div>
@@ -88,27 +87,29 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             </ul>
           </div>
         </nav>
-        <div className="absolute bottom-0 left-0 w-64 p-4 border-t border-white/20">
-          <div className="flex items-center mb-4">
-            <div className="bg-white text-[hsl(var(--sidebar-background))] rounded-full p-2 mr-3">
-              <User size={20} />
-            </div>
-            <div>
-              <p className="font-medium text-white">{user.name}</p>
-              <p className="text-sm text-white/70">{user.role}</p>
-            </div>
-          </div>
-          <Button
-            variant="outline"
-            className="w-full border-white/20 text-white hover:bg-white/10 hover:text-white"
-            onClick={handleLogout}
-          >
-            <LogOut className="mr-2 h-4 w-4" />
-            Logout
-          </Button>
-        </div>
       </aside>
       <main className="flex-1 p-8 overflow-auto">
+        {/* Add header with user info and logout button to match the image */}
+        <header className="flex justify-end mb-6 items-center">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center">
+              <div className="bg-gray-100 rounded-full p-2 mr-3">
+                <User size={20} className="text-primary" />
+              </div>
+              <div>
+                <p className="font-medium">{user.name}</p>
+                <p className="text-sm text-muted-foreground">{user.role}</p>
+              </div>
+            </div>
+            <Button
+              variant="outline"
+              className="border-gray-200 text-gray-700 hover:bg-gray-50"
+              onClick={handleLogout}
+            >
+              Logout
+            </Button>
+          </div>
+        </header>
         {children}
       </main>
     </div>
