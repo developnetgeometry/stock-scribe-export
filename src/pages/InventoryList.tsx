@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useInventory } from "../contexts/InventoryContext";
 import { useAuth } from "../contexts/AuthContext";
@@ -101,11 +100,11 @@ const InventoryList = () => {
   const getStatusBadge = (status: string) => {
     switch(status) {
       case "Active":
-        return <Badge className="bg-green-500">{status}</Badge>;
+        return <Badge className="status-badge-active">In Operation</Badge>;
       case "Inactive":
-        return <Badge variant="secondary">{status}</Badge>;
+        return <Badge variant="secondary">Inactive</Badge>;
       case "Reserved":
-        return <Badge className="bg-amber-500">{status}</Badge>;
+        return <Badge className="status-badge-temporary">Temporarily Close</Badge>;
       default:
         return <Badge>{status}</Badge>;
     }
@@ -114,12 +113,22 @@ const InventoryList = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">Inventory List</h1>
+        <div>
+          <h1 className="text-3xl font-bold">Inventory Management</h1>
+          <p className="text-muted-foreground">Manage all inventory items</p>
+        </div>
         <div className="flex gap-2">
           {canExport && (
-            <Button onClick={handleExport}>
+            <Button variant="export">
               <FileSpreadsheet className="mr-2 h-4 w-4" />
               Export {selectedItems.length > 0 ? `(${selectedItems.length})` : "All"}
+            </Button>
+          )}
+          {/* Add New Item button with new style */}
+          {canEdit && (
+            <Button variant="add" onClick={() => navigate('/register')}>
+              <span className="text-lg font-bold">+</span>
+              Add New Item
             </Button>
           )}
         </div>
@@ -135,7 +144,7 @@ const InventoryList = () => {
               <div className="flex-1 relative">
                 <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                 <Input
-                  placeholder="Search by item no. or name..."
+                  placeholder="Search items..."
                   className="pl-10"
                   value={filterOptions.search}
                   onChange={(e) => setFilterOptions({ ...filterOptions, search: e.target.value })}
@@ -143,7 +152,7 @@ const InventoryList = () => {
               </div>
               
               <Button
-                variant="outline"
+                variant="filter"
                 onClick={() => setIsFilterOpen(!isFilterOpen)}
               >
                 <Filter className="mr-2 h-4 w-4" />
@@ -160,7 +169,7 @@ const InventoryList = () => {
                     value={filterOptions.category}
                     onValueChange={(value) => setFilterOptions({ ...filterOptions, category: value })}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="w-full">
                       <SelectValue placeholder="All Categories" />
                     </SelectTrigger>
                     <SelectContent>
@@ -180,14 +189,14 @@ const InventoryList = () => {
                     value={filterOptions.status}
                     onValueChange={(value) => setFilterOptions({ ...filterOptions, status: value as any })}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="w-full">
                       <SelectValue placeholder="All Statuses" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">All Statuses</SelectItem>
-                      <SelectItem value="Active">Active</SelectItem>
+                      <SelectItem value="all-statuses">All Statuses</SelectItem>
+                      <SelectItem value="Active">In Operation</SelectItem>
                       <SelectItem value="Inactive">Inactive</SelectItem>
-                      <SelectItem value="Reserved">Reserved</SelectItem>
+                      <SelectItem value="Reserved">Temporarily Close</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -198,7 +207,7 @@ const InventoryList = () => {
                     value={filterOptions.location}
                     onValueChange={(value) => setFilterOptions({ ...filterOptions, location: value })}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="w-full">
                       <SelectValue placeholder="All Locations" />
                     </SelectTrigger>
                     <SelectContent>
@@ -211,6 +220,14 @@ const InventoryList = () => {
                     </SelectContent>
                   </Select>
                 </div>
+              </div>
+            )}
+            
+            {isFilterOpen && (
+              <div className="flex justify-end">
+                <Button variant="reset" className="ml-auto">
+                  Reset Filters
+                </Button>
               </div>
             )}
           </div>
